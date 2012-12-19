@@ -156,8 +156,14 @@ class GeoHash extends GeoAdapter{
     $ll['minlon'] = $minlon;
     $ll['maxlat'] = $maxlat;
     $ll['maxlon'] = $maxlon;
+    // Workaround to solve rounding errors.
+    // See https://github.com/phayes/geoPHP/issues/63
+    $ll['medlat'] = ($minlat+$maxlat)/2;
+    $ll['medlon'] = ($minlon+$maxlon)/2;
+    /*
     $ll['medlat'] = round(($minlat+$maxlat)/2, max(1, -round(log10($latE)))-1);
     $ll['medlon'] = round(($minlon+$maxlon)/2, max(1, -round(log10($lonE)))-1);
+    */
     return $ll;
   }
 }
